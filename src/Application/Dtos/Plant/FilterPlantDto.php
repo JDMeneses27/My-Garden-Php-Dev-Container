@@ -6,7 +6,7 @@ namespace App\Application\Dtos\User;
 
 use App\Application\Dtos\Contracts\ArraySerializableDto;
 
-class FilterUserDto implements ArraySerializableDto
+class FilterPlantDto implements ArraySerializableDto
 {
     //system.out.println(" Aqui tiene su cafe, que ultimamente ud  ha. estado como mal");
     private const ALLOWED_KEYS = [

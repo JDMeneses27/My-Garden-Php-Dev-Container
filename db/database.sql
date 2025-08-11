@@ -1,31 +1,41 @@
--- Active: 1752434449310@@127.0.0.1@3306
-CREATE DATABASE IF NOT EXISTS `garden`;
+CREATE DATABASE IF NOT EXISTS garden;
 
-USE `garden`;
+USE garden;
 
-DROP TABLE IF EXISTS `users`;
+-- TABLAS 
 
-CREATE TABLE `users` (
-    `id` int NOT NULL AUTO_INCREMENT,
-    `name` varchar(100) NOT NULL,
-    `email` varchar(100) NOT NULL,
-    `password` varchar(255) NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `email` (`email`)
+
+CREATE TABLE usuarios (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    correo VARCHAR(100) NOT NULL UNIQUE,
+    contrasena VARCHAR(255) NOT NULL,
 );
 
-INSERT INTO
-    `users` (`name`, `email`, `password`)
-VALUES (
-        'adrian',
-        'adrian@gmail.com',
-        SHA2('h3ll0.', 512)
-    );
+CREATE TABLE plantas (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    categoria VARCHAR(150) NOT NULL,
+    familia varchar(150) NOT NULL,
+);
 
-INSERT INTO
-    `users` (`name`, `email`, `password`)
-VALUES (
-        'ana',
-        'ana@gmail.com',
-        SHA2('h3ll0.', 512)
-    );
+CREATE TABLE riego (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    categoria VARCHAR(150) NOT NULL UNIQUE
+    frecuencia_riego VARCHAR(50) NOT NULL
+);
+
+
+INSERT INTO usuarios(nombre, correo, contraseña) VALUES
+('adrian', 'adrian@gmail.com', SHA2('h3ll0.', 512)),
+('ana', 'ana@gmail.com', SHA2('h3ll0.', 512));
+
+INSERT INTO plantas(nombre, familia, categoria) VALUES
+('Aloe Vera', 'Asphodelaceae', 'cactus'),
+('Lavanda', 'Lamiaceae', 'ornamental'),
+('Fresa', 'Rosaceae', 'frutal');
+
+INSERT INTO riego(categoria, frecuencia_riego) VALUES
+('cactus', '10 dias'),
+('ornamental', '3 dias'),
+('frutal', '5 dias');

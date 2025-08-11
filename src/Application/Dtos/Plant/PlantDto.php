@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Dtos\User;
+namespace App\Application\Dtos\Plant;
 
 use App\Application\Dtos\Contracts\ArraySerializableDto;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as v;
 
-class FindUserDto implements ArraySerializableDto
+class PlantDto implements ArraySerializableDto
 {
 
     /**
@@ -25,7 +25,10 @@ class FindUserDto implements ArraySerializableDto
     private function validate()
     {
         try {
-            v::intType()->setName('userId')->assert((int)$this->args['id']);
+            v::intType()->setName('PlantId')->assert((int)$this->args['id']);
+            v::stringType()->length(min: 2, max: 50)->setName('nombre')->assert($this->args['nombre']);
+            v::stringType()->length(min: 2, max: 50)->setName('familia')->assert($this->args['familia']);
+            v::stringType()->length(min: 2, max: 50)->setName('categoria')->assert($this->args['categoria']);
         } catch (NestedValidationException $e) {
             throw new \InvalidArgumentException($e->getFullMessage());
         }
@@ -37,7 +40,9 @@ class FindUserDto implements ArraySerializableDto
     public function toArray(): array
     {
         return [
-            'id' => (int)$this->args['id']
+            'nombre' => htmlspecialchars($this->args['nombre']),
+            'familia' => htmlspecialchars($this->args['familia']),
+            'categoria' => htmlspecialchars($this->args['categoria'])
         ];
     }
 }

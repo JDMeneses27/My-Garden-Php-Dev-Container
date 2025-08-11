@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Application\Controllers\User\UserController;
+use App\Application\Controllers\Plant\PlantController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -20,11 +20,11 @@ return function (App $app) {
     });
 
     $app->group('/users', function (Group $group) {
-        $group->get('', [UserController::class, 'index']);
-        $group->get('/{id}', [UserController::class, 'findById']);
-        $group->post('', [UserController::class, 'create']);
-        $group->put('/{id}', [UserController::class, 'update']);
-        $group->delete('/{id}', [UserController::class, 'delete']);
+        $group->get('', [PlantController::class, 'index']);
+        $group->get('/{id}', [PlantController::class, 'findById']);
+        $group->post('', [PlantController::class, 'create']);
+        $group->put('/{id}', [PlantController::class, 'update']);
+        $group->delete('/{id}', [PlantController::class, 'delete']);
     });
 
     //Agregar las rutas aquí abajo.

@@ -10,7 +10,7 @@ use App\Domain\DomainException\User\UserNotFoundException;
 use App\Domain\Repository\UserRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class ElloquentUserRepository implements UserRepository
+class ElloquentPlantRepository implements UserRepository
 {
     /**
      * {@inheritdoc}
@@ -29,7 +29,7 @@ class ElloquentUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function findUserOfId(int $id): User
+    public function findOfId(int $id): User
     {
         try {
             return User::findOrFail($id);
@@ -42,32 +42,32 @@ class ElloquentUserRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function deleteUser(int $id): bool
+    public function deleteplant(int $id): bool
     {
-        $user = $this->findUserOfId($id);
-        return $user->delete();
+        $plant = $this->findPlantOfId($id);
+        return $plant->delete();
     }
 
 
     /**
      * {@inheritdoc}
      */
-    public function createUser(array $data): User
+    public function createPlant(array $data): User
     {
-        $user = User::create($data);
-        if (!$user) {
+        $plant = User::create($data);
+        if (!$plant) {
             throw new UserAlreadyExistsException();
         }
-        return $user;
+        return $plant;
     }
 
 
     /**
      * {@inheritdoc}
      */
-    public function updateUser(int $id, array $data): bool
+    public function updatePlant(int $id, array $data): bool
     {
-        $user = $this->findUserOfId($id);
-        return $user->update($data);
+        $plant = $this->findUserOfId($id);
+        return $plant->update($data);
     }
 }

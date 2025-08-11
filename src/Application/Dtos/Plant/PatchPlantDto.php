@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Dtos\User;
+namespace App\Application\Dtos\Plant;
 
 use App\Application\Dtos\Contracts\ArraySerializableDto;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as v;
 
-class PatchUserDto implements ArraySerializableDto
+class PatchPlantDto implements ArraySerializableDto
 {
     /**
      * @param array $args
@@ -24,12 +24,10 @@ class PatchUserDto implements ArraySerializableDto
     private function validate()
     {
         try {
-            v::intType()->setName('userId')->assert((int)$this->args['id']);
-            v::stringType()->length(min: 2, max: 50)->setName('name')->assert($this->args['name']);
-            v::email()->setName('email')->assert($this->args['email']);
-            v::stringType()->length(min: 8, max: 100)
-                ->regex('/[!@#$%^&*()\-_=+{};:,<.>]/')->regex('/[0-9]/')
-                ->setName('password')->assert($this->args['password']);
+            v::intType()->setName('PlantId')->assert((int)$this->args['id']);
+            v::stringType()->length(min: 2, max: 50)->setName('nombre')->assert($this->args['nombre']);
+            v::stringType()->length(min: 2, max: 50)->setName('familia')->assert($this->args['familia']);
+            v::stringType()->length(min: 2, max: 50)->setName('categoria')->assert($this->args['categoria']);
         } catch (NestedValidationException $e) {
             throw new \InvalidArgumentException($e->getFullMessage());
         }
@@ -42,9 +40,9 @@ class PatchUserDto implements ArraySerializableDto
     {
         return [
             'id' => (int)$this->args['id'],
-            'name' => htmlspecialchars($this->args['name']),
-            'email' => htmlspecialchars($this->args['email']),
-            'password' => password_hash($this->args['password'], PASSWORD_DEFAULT)
+            'nombre' => htmlspecialchars($this->args['nombre']),
+            'familia' => htmlspecialchars($this->args['familia']),
+            'categoria' => htmlspecialchars($this->args['categoria'])
         ];
     }
 }
