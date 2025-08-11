@@ -19,12 +19,12 @@ return function (App $app) {
         return $response;
     });
 
-    $app->group('/users', function (Group $group) {
+    $app->group('/plantas', function (Group $group) {
         $group->get('', [PlantController::class, 'index']);
-        $group->get('/{id}', [PlantController::class, 'findById']);
-        $group->post('', [PlantController::class, 'create']);
-        $group->put('/{id}', [PlantController::class, 'update']);
-        $group->delete('/{id}', [PlantController::class, 'delete']);
+        $group->get('/{id}', [PlantController::class, 'findPlantOfId']);
+        $group->post('', [PlantController::class, 'createPlant']);
+        $group->put('/{id}', [PlantController::class, 'updatePlant']);
+        $group->delete('/{id}', [PlantController::class, 'deletePlant']);
     });
 
     //Agregar las rutas aquí abajo.

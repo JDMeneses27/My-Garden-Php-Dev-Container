@@ -39,7 +39,7 @@ class PlantController
      * @param Response $response
      * @return mixed
      */
-    public function findById(Request $request, Response $response, array $args)
+    public function findPlantOfId(Request $request, Response $response, array $args)
     {
         $dto = new FindPlantDto($args);
         $useCase = new FindPlantUseCase($this->plantRepository);
@@ -51,7 +51,7 @@ class PlantController
      * @param Response $response
      * @return mixed
      */
-    public function create(Request $request, Response $response)
+    public function createPlant(Request $request, Response $response)
     {
         $dto = new PlantDto($request->getParsedBody());
         $useCase = new CreatePlantUseCase($this->plantRepository);
@@ -63,7 +63,7 @@ class PlantController
      * @param Response $response
      * @return mixed
      */
-    public function update(Request $request, Response $response, array $args)
+    public function updatePlant(Request $request, Response $response, array $args)
     {
         $dto = new PatchPlantDto(array_merge($request->getParsedBody(), $args));
         $useCase = new UpdatePlantUseCase($this->plantRepository);
@@ -75,7 +75,7 @@ class PlantController
      * @param Response $response
      * @return mixed
      */
-    public function delete(Request $request, Response $response, array $args)
+    public function deletePlant(Request $request, Response $response, array $args)
     {
         $dto = new FindPlantDto($args);
         $useCase = new DeletePlantUseCase($this->plantRepository);

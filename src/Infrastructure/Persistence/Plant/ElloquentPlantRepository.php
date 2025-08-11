@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence\User;
+namespace App\Infrastructure\Persistence\Plant;
 
-use App\Domain\DomainException\User\UserAlreadyExistsException;
-use App\Domain\Model\User\User;
-use App\Domain\DomainException\User\UserNotFoundException;
-use App\Domain\Repository\UserRepository;
+use App\Domain\DomainException\Plant\PlantAlreadyExistsException;
+use App\Domain\Model\Plant\Plant;
+use App\Domain\DomainException\Plant\PlantNotFoundException;
+use App\Domain\Repository\PlantRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class ElloquentPlantRepository implements UserRepository
+class ElloquentPlantRepository implements PlantRepository
 {
     /**
      * {@inheritdoc}
      */
     public function findAll(?array $filters = null): array
     {
-        $query = User::query();
+        $query = Plant::query();
 
         if ($filters) {
             $query->where($filters);
@@ -29,12 +29,12 @@ class ElloquentPlantRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function findOfId(int $id): User
+    public function findPlantOfId(int $id): Plant
     {
         try {
-            return User::findOrFail($id);
+            return Plant::findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new UserNotFoundException();
+            throw new PlantNotFoundException();
         }
     }
 
@@ -42,7 +42,7 @@ class ElloquentPlantRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function deleteplant(int $id): bool
+    public function deletePlant(int $id): bool
     {
         $plant = $this->findPlantOfId($id);
         return $plant->delete();
@@ -52,11 +52,11 @@ class ElloquentPlantRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function createPlant(array $data): User
+    public function createPlant(array $data): Plant
     {
-        $plant = User::create($data);
+        $plant = Plant::create($data);
         if (!$plant) {
-            throw new UserAlreadyExistsException();
+            throw new PlantAlreadyExistsException();
         }
         return $plant;
     }
@@ -67,7 +67,7 @@ class ElloquentPlantRepository implements UserRepository
      */
     public function updatePlant(int $id, array $data): bool
     {
-        $plant = $this->findUserOfId($id);
+        $plant = $this->findPlantOfId($id);
         return $plant->update($data);
     }
 }

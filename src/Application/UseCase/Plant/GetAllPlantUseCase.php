@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Application\UseCase\User;
+namespace App\Application\UseCase\Plant;
 
 use App\Application\Dtos\Contracts\ArraySerializableDto;
 use App\Application\UseCase\Contracts\ActionUseCase;
-use App\Domain\Repository\UserRepository;
+use App\Domain\Repository\PlantRepository;
 
-class CreateUserUseCase implements ActionUseCase
+class GetAllPlantUseCase implements ActionUseCase
 {
-    public function __construct(private readonly UserRepository $repository) {}
+    public function __construct(private readonly PlantRepository $repository) {}
 
     /**
      * @param ?ArraySerializableDto $dto
@@ -16,6 +16,6 @@ class CreateUserUseCase implements ActionUseCase
      */
     public function __invoke(?ArraySerializableDto $dto = null)
     {
-        return $this->repository->createUser($dto->toArray());
+        return $this->repository->findAll($dto->toArray());
     }
 }
